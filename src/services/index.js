@@ -446,7 +446,7 @@ export const getCourseSchedule = (courseSchedule) => {
     .set('millisecond', 0), 'millisecond')
   const isSameKind = Math.floor(diff / 7 / 86400000) % 2 === 0
   const kind = ((isSameKind && courseSchedule.benchmark.isOdd) || (!isSameKind && !courseSchedule.benchmark.isOdd)) ? 'odd' : 'even'
-  
+
   const temp = ((courseSchedule.courses && courseSchedule.courses[kind] && courseSchedule.courses[kind][week]) || [])
   const schedule = temp.join(getLB())
   const wechatTestCourseSchedule = []
@@ -454,11 +454,11 @@ export const getCourseSchedule = (courseSchedule) => {
     wechatTestCourseSchedule.push({
       name: toLowerLine(`wxCourseSchedule_${index}`),
       value: item,
-      color: getColor()
+      color: getColor(),
     })
   })
 
-  return {schedule, wechatTestCourseSchedule}
+  return { schedule, wechatTestCourseSchedule }
 }
 
 /**
@@ -515,7 +515,6 @@ export const getBirthdayMessage = (festivals) => {
   })
   let resMessage = ''
   const wechatTestBirthdayMessage = []
-  
 
   birthdayList.forEach((item, index) => {
     if (
@@ -556,13 +555,13 @@ export const getBirthdayMessage = (festivals) => {
         wechatTestBirthdayMessage.push({
           name: toLowerLine(`wxBirthday_${index}`),
           value: message,
-          color: getColor()
+          color: getColor(),
         })
       }
     }
   })
 
-  return {resMessage, wechatTestBirthdayMessage}
+  return { resMessage, wechatTestBirthdayMessage }
 }
 
 /**
@@ -713,6 +712,11 @@ export const getAggregatedData = async () => {
   } = await getOneTalk(config.LITERARY_PREFERENCE)
   // 获取土味情话
   const earthyLoveWords = await getEarthyLoveWords() || DEFAULT_OUTPUT.earthyLoveWords
+  let times = Math.ceil(earthyLoveWords.length / 20)
+  const earthyLoveWordsList = []
+  while (times-- > 0) {
+    earthyLoveWordsList.unshift(earthyLoveWords.slice(times * 20, (times + 1) * 20))
+  }
   // 获取朋友圈文案
   const momentCopyrighting = await getMomentCopyrighting() || DEFAULT_OUTPUT.momentCopyrighting
   // 获取毒鸡汤
@@ -757,7 +761,7 @@ export const getAggregatedData = async () => {
     const constellationFortune = await getConstellationFortune(user.horoscopeDate, user.horoscopeDateType)
 
     // 获取课表信息
-    const {schedule:courseSchedule, wechatTestCourseSchedule} = getCourseSchedule(user.courseSchedule || config.courseSchedule) || DEFAULT_OUTPUT.courseSchedule
+    const { schedule: courseSchedule, wechatTestCourseSchedule } = getCourseSchedule(user.courseSchedule || config.courseSchedule) || DEFAULT_OUTPUT.courseSchedule
 
     // 天行-早晚安
     const tianApiGreeting = [{
@@ -807,6 +811,10 @@ export const getAggregatedData = async () => {
       { name: toLowerLine('poetryDynasty'), value: poetryDynasty, color: getColor() },
       { name: toLowerLine('poetryTitle'), value: poetryTitle, color: getColor() },
       { name: toLowerLine('courseSchedule'), value: courseSchedule, color: getColor() },
+      ...earthyLoveWordsList.map((item, index) => ({
+        name: `earthy_love_words_${index}`,
+        value: item,
+      })),
     ].concat(weatherMessage)
       .concat(constellationFortune)
       .concat(dateDiffParams)
