@@ -548,6 +548,11 @@ export const getBirthdayMessage = (festivals) => {
           message = `距离 「${item.name}」 还有${item.diffDay}天`
         }
       }
+      
+      if (item.type === '纪念日') {
+        const day =  Math.ceil(selfDayjs().diff(selfDayjs(`${item.year}-${item.date}`), 'day', true))
+        message = `我们已经 「${item.name}」 ${day}天啦!`
+      }
 
       // 存储数据
       if (message) {
