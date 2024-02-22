@@ -46,13 +46,13 @@ const USER_CONFIG = {
           type: "节日",
           name: "定亲时间",
           year: "2023",
-          date: "10-01",
+          date: "11-18",
         },
         {
           type: "节日",
           name: "我们结婚的日子",
           year: "2023",
-          date: "12-21",
+          date: "12-02",
         },
       ],
       // 我们在一起已经有xxxx天了的配置
@@ -61,7 +61,7 @@ const USER_CONFIG = {
         { keyword: "love_day", date: "2021-10-21" },
         // 邂逅纪念日
         { keyword: "miss_day", date: "2021-10-13" },
-        { keyword: "get_marry_day", date: "2023-12-21" },
+        { keyword: "get_marry_day", date: "2023-12-02" },
       ],
     },
     {
@@ -92,13 +92,13 @@ const USER_CONFIG = {
           type: "节日",
           name: "定亲时间",
           year: "2023",
-          date: "10-01",
+          date: "11-18",
         },
         {
           type: "节日",
           name: "我们结婚的日子",
           year: "2023",
-          date: "12-21",
+          date: "12-02",
         },
       ],
       // 我们在一起已经有xxxx天了的配置
@@ -107,7 +107,7 @@ const USER_CONFIG = {
         { keyword: "love_day", date: "2021-10-21" },
         // 邂逅纪念日
         { keyword: "miss_day", date: "2021-10-13" },
-        { keyword: "get_marry_day", date: "2023-12-21" },
+        { keyword: "get_marry_day", date: "2023-12-02" },
       ],
     },
   ],
